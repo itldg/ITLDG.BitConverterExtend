@@ -12,6 +12,8 @@
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/itldg/ITLDG.BitConverterExtend</RepositoryUrl>
+    <PackageTags>BitConverterExtend;BigEndian</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
