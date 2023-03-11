@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageIcon>logo.png</PackageIcon>
+    <Title>ITLDG.BitConverterExtend</Title>
+    <Authors>ITLDG</Authors>
+    <Description>BitConverter的大端扩展,额外增加了一些常用方法</Description>
+    <PackageProjectUrl>https://github.com/itldg/ITLDG.BitConverterExtend</PackageProjectUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/itldg/ITLDG.BitConverterExtend</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Administrator\Desktop\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+	<Target Name="CopyPackage" AfterTargets="Pack">
+		<Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="D:\Data\Code\Net\Nuget" />
+	</Target>
+</Project>
