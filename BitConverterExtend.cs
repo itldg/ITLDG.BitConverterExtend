@@ -339,6 +339,10 @@ namespace ITLDG
         public static byte[] GetBytes_HEX(this string value)
         {
             value = value.Replace(" ", "").Replace("\t", "").Replace("-", "");
+            if(value.Length % 2 != 0)
+            {
+                value= "0" + value;
+            }
             int len = value.Length / 2;
             byte[] bytes = new byte[len];
             StringBuilder sb = new StringBuilder(value);
