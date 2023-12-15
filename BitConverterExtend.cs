@@ -226,6 +226,63 @@ namespace ITLDG
                 | (value[startIndex++] << 24) | (value[startIndex++] << 16)
                 | (value[startIndex++] << 8) | value[startIndex]);
         }
+        /// <summary>
+        /// 返回由字节数组转换的整数。
+        /// </summary>
+        /// <param name="value">字节数组。</param>
+        /// <returns>根据字节长度,返回合适的整数类型</returns>
+        public static object ToIntByBigEndian(this byte[] value)
+        {
+            if (value.Length == 1)
+            {
+                return (short)value[0];
+            }
+            else if(value.Length <= 2)
+            {
+                return value.ToInt16ByBigEndian();
+            }
+            else if (value.Length <= 4)
+            {
+                return value.ToInt32ByBigEndian();
+            }
+            else if (value.Length <= 8)
+            {
+                return value.ToInt64ByBigEndian();
+            }
+            else
+            {
+                throw new Exception("字节数组长度超出范围");
+            }
+        }
+        /// <summary>
+        /// 返回由字节数组转换的无符号整数。
+        /// </summary>
+        /// <param name="value">字节数组。</param>
+        /// <returns>根据字节长度,返回合适的无符号整数类型</returns>
+        public static object ToUIntByBigEndian(this byte[] value)
+        {
+            if (value.Length == 1)
+            {
+                return (ushort)value[0];
+            }
+            else if (value.Length <= 2)
+            {
+                
+                return value.ToUInt16ByBigEndian();
+            }
+            else if (value.Length <= 4)
+            {
+                return value.ToUInt32ByBigEndian();
+            }
+            else if (value.Length <= 8)
+            {
+                return value.ToUInt64ByBigEndian();
+            }
+            else
+            {
+                throw new Exception("字节数组长度超出范围");
+            }
+        }
         #endregion
 
         #region 字节数组与字符串转换
@@ -301,6 +358,28 @@ namespace ITLDG
             }
             return sb.ToString();
         }
+        /// <summary>
+        /// 将HEX字符串转换为ASCII码的HEX字符串。
+        /// </summary>
+        /// <param name="value">HEX字符串</param>
+        /// <param name="separator">转换后分隔符</param>
+        /// <returns>转换为ASCII码的HEX字符串</returns>
+        /// <example>GetString_HEX2ASCII("01 02")//30 31 30 32</example>
+        public static string GetString_HEX2ASCII(this string value, string separator = " ")
+        {
+            return Encoding.Default.GetBytes(value).GetString_HEX(separator);
+        }
+        /// <summary>
+        /// 将ASCII码的HEX字符串转换为HEX字符串。
+        /// </summary>
+        /// <param name="value">ASCII码的HEX字符串</param>
+        /// <param name="separator">转换后分隔符</param>
+        /// <returns>HEX字符串</returns>
+        /// <example>GetString_HEX2ASCII("30 31 30 32")//01 02</example>
+        public static string GetString_ASCII2HEX(this string value)
+        {
+            return Encoding.Default.GetString(GetBytes_HEX(value));
+        }
 
         /// <summary>
         /// 字节转换为二进制字符串(高位在前)。
@@ -338,10 +417,10 @@ namespace ITLDG
         /// <returns>以字节数组的形式返回指定的十六进制字符串。</returns>
         public static byte[] GetBytes_HEX(this string value)
         {
-            value = value.Replace(" ", "").Replace("\t", "").Replace("-", "");
-            if(value.Length % 2 != 0)
+            value = RemoveHexSpace(value);
+            if (value.Length % 2 != 0)
             {
-                value= "0" + value;
+                value = "0" + value;
             }
             int len = value.Length / 2;
             byte[] bytes = new byte[len];
@@ -351,6 +430,15 @@ namespace ITLDG
                 bytes[i] = byte.Parse(sb.ToString(i * 2, 2), NumberStyles.HexNumber);
             }
             return bytes;
+        }
+        /// <summary>
+        /// 移除HEX字符串中的空格、制表符、连接符
+        /// </summary>
+        /// <param name="value">HEX字符串</param>
+        /// <returns>移除后的结果</returns>
+        public static string RemoveHexSpace(string value)
+        {
+            return value.Replace(" ", "").Replace("\t", "").Replace("-", "");
         }
         #endregion
     }

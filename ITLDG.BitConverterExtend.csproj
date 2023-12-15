@@ -6,7 +6,8 @@
     <Title>ITLDG.BitConverterExtend</Title>
     <Authors>ITLDG</Authors>
     <Description>BitConverter的大端扩展,额外增加了一些常用方法</Description>
-    <PackageProjectUrl>https://github.com/itldg/ITLDG.BitConverterExtend</PackageProjectUrl>
+	<VersionPrefix>1.0.3</VersionPrefix>
+    <PackageProjectUrl>https://www.itldg.com</PackageProjectUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
